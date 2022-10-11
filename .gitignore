@@ -13,6 +13,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+/src/views/ComponentView.vue
+
 # Editor directories and files
 .idea
 .vscode
