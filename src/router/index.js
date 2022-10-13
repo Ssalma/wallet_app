@@ -4,6 +4,8 @@ import HomeView from "../views/Home.vue";
 // import DashboardLayout from "../layout/Dashboard.vue";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
+const authDashboard = () =>
+  import(/* webpackChunkName: "dashboard" */ "../layout/AuthScreens.vue");
 
 const routes = [
   {
@@ -15,6 +17,11 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardLayout,
+  },
+  {
+    path: "/authDashboard",
+    name: "authDashboard",
+    component: authDashboard,
   },
   {
     path: "/components",
