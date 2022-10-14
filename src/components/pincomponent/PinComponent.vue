@@ -3,11 +3,8 @@
     <input
       type="text"
       maxlength="1"
-      :value="inputValue1"
-      @input="
-        focusNext($event);
-        $emit('update:inputValue1', $event.target.value);
-      "
+      v-model="inputs[0]"
+      @input="focusNext"
       @keypress="checkIfNumber"
       @keyup.delete="focusPrevious"
       placeholder="_"
@@ -17,11 +14,8 @@
     <input
       type="text"
       maxlength="1"
-      :value="inputValue2"
-      @input="
-        focusNext($event);
-        $emit('update:inputValue2', $event.target.value);
-      "
+      v-model="inputs[1]"
+      @input="focusNext"
       @keypress="checkIfNumber"
       @keyup.delete="focusPrevious"
       placeholder="_"
@@ -31,11 +25,8 @@
     <input
       type="text"
       maxlength="1"
-      :value="inputValue3"
-      @input="
-        focusNext($event);
-        $emit('update:inputValue3', $event.target.value);
-      "
+      v-model="inputs[2]"
+      @input="focusNext"
       @keypress="checkIfNumber"
       @keyup.delete="focusPrevious"
       placeholder="_"
@@ -45,37 +36,29 @@
     <input
       type="text"
       maxlength="1"
-      :value="inputValue4"
-      @input="
-        focusNext($event);
-        $emit('update:inputValue4', $event.target.value);
-      "
+      v-model="inputs[3]"
+      @input="focusNext"
       @keypress="checkIfNumber"
       @keyup.delete="focusPrevious"
       placeholder="_"
       onfocus="this.select()"
       v-bind="$attrs"
     />
+
+    <p>{{ inputs.join("") }}</p>
+    <p>{{ inputValue }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "PinComponent",
-  props: {
-    inputValue1: {
-      type: Number,
-    },
-    inputValue2: {
-      type: Number,
-    },
-    inputValue3: {
-      type: Number,
-    },
-    inputValue4: {
-      type: Number,
-    },
+  data() {
+    return {
+      inputs: ["", "", "", ""],
+    };
   },
+  props: ["inputValue"],
   methods: {
     focusNext(e) {
       if (e.target.value !== "" && e.target.value.length === 1) {
@@ -98,6 +81,15 @@ export default {
       }
     },
   },
+  watch: {
+    inputs: {
+      handler() {
+        this.$emit("update:inputValue", this.inputs.join(""));
+        console.log(this.inputs);
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -115,7 +107,7 @@ export default {
   max-width: 264px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 54px;
   padding: 20px;
   input {
     @include inputTypography();
