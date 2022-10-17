@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
 import HomeView from "../views/Home.vue";
+import { DashboardModal, pagination } from "@/components";
 // import DashboardLayout from "../layout/Dashboard.vue";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
@@ -27,6 +28,16 @@ const routes = [
     path: "/components",
     name: "components",
     component: ComponentView,
+  },
+  {
+    path: "/pagination",
+    name: "pagination",
+    component: pagination,
+  },
+  {
+    path: "/dashboardmodal",
+    name: "dashboardmodal",
+    component: DashboardModal,
   },
   {
     path: "/about",

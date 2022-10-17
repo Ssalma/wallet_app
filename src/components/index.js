@@ -1,5 +1,6 @@
 import HelloWorld from "./HelloWorld"
+import DashboardModal from "./modal/DashboardModal"
+import ButtonComponent from "./button/ButtonComponent"
+import pagination from "./pagination/paginationComp"
 
-import ButtonComponent from "./btnComponentFolder/ButtonComponent"
-
-export {HelloWorld, ButtonComponent}
+export {HelloWorld, ButtonComponent, DashboardModal, pagination}
