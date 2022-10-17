@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
 import HomeView from "../views/Home.vue";
+import { DashboardModal, pagination } from "@/components";
 // import DashboardLayout from "../layout/Dashboard.vue";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
+const authDashboard = () =>
+  import(/* webpackChunkName: "dashboard" */ "../layout/AuthScreens.vue");
 
 const routes = [
   {
-    path: "/",
+    path: "/dashboard/home",
     name: "home",
     component: HomeView,
   },
@@ -17,9 +20,24 @@ const routes = [
     component: DashboardLayout,
   },
   {
+    path: "/authDashboard",
+    name: "authDashboard",
+    component: authDashboard,
+  },
+  {
     path: "/components",
     name: "components",
     component: ComponentView,
+  },
+  {
+    path: "/pagination",
+    name: "pagination",
+    component: pagination,
+  },
+  {
+    path: "/dashboardmodal",
+    name: "dashboardmodal",
+    component: DashboardModal,
   },
   {
     path: "/about",
