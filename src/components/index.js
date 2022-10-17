@@ -1,2 +1,3 @@
 import InputField from "./Inputcomponent/InputField"
-export {InputField}
+import TableSection from "./Tablecomponent/TableSection"
+export {InputField,TableSection}
