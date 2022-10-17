@@ -24,7 +24,7 @@
 <script>
 import logo from "@/assets/Union.svg";
 export default {
-  name: "authDashboard",
+  name: "AuthScreen",
     props: {
         title: {
             type: String,
