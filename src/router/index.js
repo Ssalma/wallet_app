@@ -15,9 +15,26 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/dashboard",
+    path: "/",
     name: "Dashboard",
     component: DashboardLayout,
+    children: [
+      {
+        path: "/",
+        name: "dashboard-home",
+        component: HomeView,
+      },
+      {
+        path: "/transactions",
+        name: "transactions",
+        component: HomeView,
+      },
+      {
+        path: "/profile",
+        name: "profile",
+        component: HomeView,
+      },
+    ],
   },
   {
     path: "/authDashboard",
