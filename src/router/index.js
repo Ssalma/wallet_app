@@ -10,7 +10,7 @@ const authDashboard = () =>
 
 const routes = [
   {
-    path: "/",
+    path: "/dashboard/home",
     name: "home",
     component: HomeView,
   },
