@@ -3,7 +3,7 @@
     <div class="sidebar"><p>sidebar will go here</p></div>
     <div class="container">
       <div class="navbar">
-        <p>Navbar with go here</p>
+       
       </div>
       <router-view v-slot="{ Component }">
         <transition>
@@ -13,12 +13,11 @@
     </div>
   </main>
 </template>
-
 <script>
 // import { Sidebar, Navbar } from "@/components";
+
 export default {
   name: "DashboardLayout",
-  components: {},
   data: () => ({}),
   computed: {},
 };
@@ -40,11 +39,13 @@ export default {
     }
   }
   @media screen and (min-width: 768px) {
-    grid-template-columns: 24.8rem auto;
+    grid-template-columns: 248px auto;
     .sidebar {
+      border: 1px solid red;
     }
     .container {
       .navbar {
+        border: 1px solid green;
       }
     }
   }
