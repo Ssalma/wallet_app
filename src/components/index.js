@@ -6,5 +6,3 @@ import ButtonComponent from "./button/ButtonComponent"
 import pagination from "./pagination/paginationComp"
 
 export {HelloWorld, ButtonComponent, DashboardModal, pagination, InputField,TableSection}
-
-
