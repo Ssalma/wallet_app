@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
 import HomeView from "../views/Home.vue";
-import { DashboardModal, pagination } from "@/components";
 // import DashboardLayout from "../layout/Dashboard.vue";
+import {LoginView, ForgetPassword, CheckInbox, OtpCreatePin, OtpVerification, ResetPassword, SignUp} from "@/views";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
-const authDashboard = () =>
-  import(/* webpackChunkName: "dashboard" */ "../layout/AuthScreens.vue");
+
 
 const routes = [
   {
@@ -14,8 +13,9 @@ const routes = [
     name: "home",
     component: HomeView,
   },
+
   {
-    path: "/",
+    path: "/dashboard",
     name: "Dashboard",
     component: DashboardLayout,
     children: [
@@ -37,24 +37,44 @@ const routes = [
     ],
   },
   {
-    path: "/authDashboard",
-    name: "authDashboard",
-    component: authDashboard,
+    path: "/auth/login",
+    name: "login",
+    component: LoginView,
+  },
+  {
+    path: "/auth/checkinbox",
+    name: "checkinbox",
+    component: CheckInbox,
+  },
+  {
+    path: "/auth/otpcreatepin",
+    name: "otpcreatepin",
+    component: OtpCreatePin,
+  },
+  {
+    path: "/auth/otpverification",
+    name: "otpverification",
+    component: OtpVerification,
+  },
+  {
+    path: "/auth/resetpassword",
+    name: "resetpassword",
+    component: ResetPassword,
+  },
+  {
+    path: "/auth/signup",
+    name: "signup",
+    component: SignUp,
+  },
+  {
+    path: "/auth/forgetpassword",
+    name: "forgetpassword",
+    component: ForgetPassword,
   },
   {
     path: "/components",
     name: "components",
     component: ComponentView,
-  },
-  {
-    path: "/pagination",
-    name: "pagination",
-    component: pagination,
-  },
-  {
-    path: "/dashboardmodal",
-    name: "dashboardmodal",
-    component: DashboardModal,
   },
   {
     path: "/about",
