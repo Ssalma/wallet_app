@@ -76,4 +76,8 @@ export default {
 .left{
     margin-top: 155px;
 }
+
+.right{
+  margin-top: 67px;
+}
 </style>
