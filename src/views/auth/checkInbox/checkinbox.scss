@@ -1,0 +1,56 @@
+@mixin typography($fontWeight, $fontSize, $lineHeight) {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: $fontWeight;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+}
+
+@mixin divStyling {
+  background: #ffffff;
+  border: 1px solid #dee3eb;
+  border-radius: 8px;
+  max-width: 528px;
+}
+
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-container {
+  @include divStyling();
+  @include flexCenter(column);
+  gap: 24px;
+  padding: 20px 16px;
+
+  h2 {
+    @include typography(600, 22px, 30px);
+    letter-spacing: -0.761905px;
+    color: #0b2253;
+    margin-top: 21px;
+  }
+
+  p {
+    @include typography(400, 14px, 16px);
+    letter-spacing: -0.05px;
+    color: #6d7a98;
+    max-width: 462px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .right-container {
+    padding: 60px;
+
+    h2 {
+      @include typography(600, 32px, 40px);
+    }
+
+    p {
+      @include typography(400, 18px, 24px);
+    }
+  }
+}

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <button :class="[ `btn--${variant}` ]" v-bind="$attrs">
-      <img :src="iconAdd" :alt="add" class="position-Icon">{{ buttonTxt }}
+    <button :class="[`btn--${variant}`]" v-bind="$attrs">
+      <img :src="iconAdd" :alt="add" class="position-Icon" />{{ buttonTxt }}
     </button>
   </div>
 </template>
 
 <script>
-
-import iconAdd from "../../assets/Vector.svg"
+import iconAdd from "../../assets/Vector.svg";
 export default {
   props: {
     buttonTxt: {
@@ -17,16 +16,15 @@ export default {
     },
     variant: {
       type: String,
-      default: "base"
-    }
+      default: "base",
+    },
   },
-  data(){
-    return{
+  data() {
+    return {
       iconAdd,
-      add: "Addition icon"
-    }
-  }
-
+      add: "Addition icon",
+    };
+  },
 };
 </script>
 
@@ -51,16 +49,16 @@ button {
     letter-spacing: 0.2px;
     color: #1f6aec;
   }
-  &--base{
+  &--base {
     background: #1f6aec;
     border-radius: 8px;
     color: #ffffff;
     border: none;
   }
-  &--blue{
+  &--blue {
     background: #1f6aec;
     border-radius: 8px;
-    padding: 17px 0;
+    padding: 12px 0;
     width: 100%;
     font-style: normal;
     font-weight: 600;
@@ -72,7 +70,7 @@ button {
   }
 }
 
-.position-Icon{
+.position-Icon {
   position: relative;
   top: 1px;
   margin-right: 8px;
