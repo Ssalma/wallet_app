@@ -13,7 +13,6 @@
       components: {
           AuthScreen 
       },
-  
   }
   </script>
   
