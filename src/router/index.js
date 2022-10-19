@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
-import HomeView from "../views/Home.vue";
+import { HomeView, ProfileView, TransactionsView } from "../views";
 // import DashboardLayout from "../layout/Dashboard.vue";
 import {
   LoginView,
@@ -27,19 +27,19 @@ const routes = [
     component: DashboardLayout,
     children: [
       {
-        path: "/",
+        path: "/dashboard",
         name: "dashboard-home",
         component: HomeView,
       },
       {
-        path: "/transactions",
+        path: "/dashboard/transactions",
         name: "transactions",
-        component: HomeView,
+        component: TransactionsView,
       },
       {
-        path: "/profile",
+        path: "/dashboard/profile",
         name: "profile",
-        component: HomeView,
+        component: ProfileView,
       },
     ],
   },
