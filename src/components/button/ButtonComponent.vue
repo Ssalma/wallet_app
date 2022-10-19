@@ -18,7 +18,7 @@ export default {
       type: String,
       default: "base"
     },
-    icon: {
+    icon:{
       type: Boolean,
       default: false
     }
