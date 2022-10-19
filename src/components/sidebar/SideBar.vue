@@ -116,7 +116,7 @@ export default {};
   padding: 12px 8px;
   .logo {
     @include flexCenter(row);
-    margin-left: 19px;
+    margin-left: 15px;
     p {
       font-family: "Inter";
       font-style: normal;

@@ -1,9 +1,9 @@
 <template>
   <main class="dashboard">
-    <div class="sidebar"><p>sidebar will go here</p></div>
+    <div class="sidebar"><SideBar /></div>
     <div class="container">
       <div class="navbar">
-       
+        <NavBar />
       </div>
       <router-view v-slot="{ Component }">
         <transition>
@@ -14,12 +14,13 @@
   </main>
 </template>
 <script>
-// import { Sidebar, Navbar } from "@/components";
+import { SideBar, NavBar } from "@/components";
 
 export default {
   name: "DashboardLayout",
   data: () => ({}),
   computed: {},
+  components: { SideBar, NavBar },
 };
 </script>
 
@@ -34,18 +35,18 @@ export default {
   .container {
     overflow-x: hidden;
     max-width: unset;
-
+    padding: 20px 32px;
     .navbar {
     }
   }
   @media screen and (min-width: 768px) {
     grid-template-columns: 248px auto;
     .sidebar {
-      border: 1px solid red;
+      // border: 1px solid red;
     }
     .container {
       .navbar {
-        border: 1px solid green;
+        // border: 1px solid green;
       }
     }
   }
