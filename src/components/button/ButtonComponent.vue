@@ -1,7 +1,9 @@
 <template>
   <div>
-    <button :class="[ `btn--${variant}` ]" v-bind="$attrs">
-      <img :src="iconAdd" :alt="add" class="position-Icon" v-if="icon">{{ buttonTxt }}
+    <button :class="[`btn--${variant}`]" v-bind="$attrs">
+      <img :src="iconAdd" :alt="add" class="position-Icon" v-if="icon" />{{
+        buttonTxt
+      }}
     </button>
   </div>
 </template>
@@ -18,10 +20,10 @@ export default {
       type: String,
       default: "base",
     },
-    icon:{
+    icon: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -41,7 +43,7 @@ button {
     border: 1px solid #1f6aec;
     background: #fff;
     border-radius: 8px;
-    padding: 17px 0;
+    padding: 12px 0;
     width: 100%;
     font-style: normal;
     font-weight: 600;
@@ -62,6 +64,34 @@ button {
     background: #1f6aec;
     border-radius: 8px;
     padding: 12px 0;
+    width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    border: none;
+  }
+  &--whiteBtn {
+    border: 1px solid #1f6aec;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 24px;
+    width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.2px;
+    color: #1f6aec;
+  }
+  &--blueBtn {
+    background: #1f6aec;
+    border-radius: 8px;
+    padding: 12px 24px;
     width: 100%;
     font-style: normal;
     font-weight: 600;

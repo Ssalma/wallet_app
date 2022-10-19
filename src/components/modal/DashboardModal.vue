@@ -10,7 +10,6 @@
           <img :src="closeIcon" alt="" @click="closeModal" />
         </figure>
       </div>
-      <hr />
       <div class="main-content">
         <slot name="content"></slot>
       </div>
@@ -95,8 +94,6 @@ export default {
   }
 }
 
-hr {
-  border: 1px solid #d7dce0;
-  margin-bottom: 24px;
-}
+
+
 </style>
