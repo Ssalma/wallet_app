@@ -1,0 +1,50 @@
+@mixin fontStyling($font-weight, $font-size, $line-height) {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+.transactions {
+  .header {
+    h3 {
+      @include fontStyling(600, 24px, 32px);
+      color: #0b2253;
+    }
+
+    .search-filter {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      .filter {
+        @include flexCenter(row);
+        background: #ffffff;
+        border: 1px solid #d7dce0;
+        border-radius: 4px;
+        height: 48px;
+        padding: 0 16px;
+        margin-top: 8px;
+        margin-left: 20px;
+        cursor: pointer;
+
+        p {
+          @include fontStyling(400, 14px, 16px);
+          color: #3a434b;
+        }
+
+        img {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}

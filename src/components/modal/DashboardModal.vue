@@ -1,6 +1,5 @@
 <template>
-  <button @click="open = true">Open Modal</button>
-  <div v-if="open">
+  <div>
     <div class="background" @click="closeModal()"></div>
     <main class="modal">
       <div class="main">
@@ -8,12 +7,11 @@
           <h3 class="title">{{ title }}</h3>
         </div>
         <figure>
-          <img :src="closeIcon" alt="" @click="open = false" />
+          <img :src="closeIcon" alt="" @click="closeModal" />
         </figure>
       </div>
       <hr />
       <div class="main-content">
-        <p class="para">{{ paragraph }}</p>
         <slot name="content"></slot>
       </div>
     </main>
@@ -36,13 +34,12 @@ export default {
   data() {
     return {
       closeIcon,
-      open: false,
     };
   },
   methods: {
-    closeModal(){
-        this.open = false
-    }
+    closeModal() {
+      this.$emit("close");
+    },
   },
 };
 </script>
@@ -57,6 +54,7 @@ export default {
   backdrop-filter: blur(50px);
   position: absolute;
   top: 0;
+  left: 0;
 }
 .modal {
   position: fixed;
