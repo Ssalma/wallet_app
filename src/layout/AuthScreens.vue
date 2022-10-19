@@ -34,7 +34,6 @@ export default {
             type: String,
             default: "Let's get started"
         }
-
     },
   data() {
     return {
@@ -48,36 +47,36 @@ export default {
 .container {
   background: #f4f7fc;
   height: 100vh;
+  max-width: 1400px;
 }
-
 .sub-container {
   width: 100%;
-  max-width: calc(100vw - 284px);
+  max-width: calc(100vw - 40px);
   margin: 0px auto;
   padding: 50px 0px 0px 0px;
 }
-
 .main {
   display: flex;
   justify-content: space-between;
 }
-
 .subtitle{
   font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  color: #6d7a98;
-  flex: none;
-  order: 5;
-  flex-grow: 0;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 42px;
+  color: #B3BECF;
+  max-width: 484px;
 }
-
 .left{
     margin-top: 155px;
 }
-
 .right{
   margin-top: 67px;
+}
+@media (max-width: 820px){
+  .main{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 </style>

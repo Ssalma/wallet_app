@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import iconAdd from "../../assets/Vector.svg"
 export default {
   props: {
@@ -30,7 +29,6 @@ export default {
       add: "Addition icon"
     }
   }
-
 };
 </script>
 
@@ -38,7 +36,6 @@ export default {
 button {
   cursor: pointer;
 }
-
 .btn {
   &--white {
     border: 1px solid #1f6aec;
@@ -75,7 +72,6 @@ button {
     border: none;
   }
 }
-
 .position-Icon{
   position: relative;
   top: 1px;
