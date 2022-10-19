@@ -44,9 +44,6 @@
       onfocus="this.select()"
       v-bind="$attrs"
     />
-
-    <p>{{ inputs.join("") }}</p>
-    <p>{{ inputValue }}</p>
   </div>
 </template>
 

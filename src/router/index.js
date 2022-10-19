@@ -2,10 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
 import HomeView from "../views/Home.vue";
 // import DashboardLayout from "../layout/Dashboard.vue";
-import {LoginView, ForgetPassword, CheckInbox, OtpCreatePin, OtpVerification, ResetPassword, SignUp} from "@/views";
+import {
+  LoginView,
+  ForgetPassword,
+  CheckInbox,
+  OtpCreatePin,
+  OtpVerification,
+  ResetPassword,
+  SignUp,
+} from "@/views";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
-
 
 const routes = [
   {

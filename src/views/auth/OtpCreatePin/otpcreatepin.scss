@@ -1,0 +1,17 @@
+@import "../checkInbox/checkinbox.scss";
+
+.create-pin {
+  @include divStyling();
+  @include flexCenter(column);
+  padding: 40px 32px;
+  width: 528px;
+
+  h2 {
+    width: 250px;
+    text-align: center;
+  }
+
+  .masked-pin-container {
+    max-width: 100%;
+  }
+}
