@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button :class="[`btn--${variant}`]" v-bind="$attrs">
-      <img :src="iconAdd" :alt="add" class="position-Icon" />{{ buttonTxt }}
+    <button :class="[ `btn--${variant}` ]" v-bind="$attrs">
+      <img :src="iconAdd" :alt="add" class="position-Icon" v-if="icon">{{ buttonTxt }}
     </button>
   </div>
 </template>
@@ -18,6 +18,10 @@ export default {
       type: String,
       default: "base",
     },
+    icon:{
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -32,7 +36,6 @@ export default {
 button {
   cursor: pointer;
 }
-
 .btn {
   &--white {
     border: 1px solid #1f6aec;
@@ -69,7 +72,6 @@ button {
     border: none;
   }
 }
-
 .position-Icon {
   position: relative;
   top: 1px;
