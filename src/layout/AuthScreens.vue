@@ -1,21 +1,21 @@
 <template>
   <div class="container">
     <div class="sub-container">
-        <figure>
-          <slot name="image">
-            <img :src="logo" alt="logo" />
-          </slot>
-        </figure>
+      <figure>
+        <slot name="image">
+          <img :src="logo" alt="logo" />
+        </slot>
+      </figure>
       <div class="main">
         <div class="left">
           <div>
-              <h1 class="title">{{title}}</h1>
-              <p class="subtitle">{{subtitle}}</p>
+            <h1 class="title">{{ title }}</h1>
+            <p class="subtitle">{{ subtitle }}</p>
           </div>
         </div>
-          <div class="right" >
-            <slot name="content"></slot>
-          </div>
+        <div class="right">
+          <slot name="content"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -25,16 +25,16 @@
 import logo from "@/assets/Union.svg";
 export default {
   name: "AuthScreen",
-    props: {
-        title: {
-            type: String,
-            default: "Create An Account"
-        },
-        subtitle:{
-            type: String,
-            default: "Let's get started"
-        }
+  props: {
+    title: {
+      type: String,
+      default: "Create An Account",
     },
+    subtitle: {
+      type: String,
+      default: "Let's get started",
+    },
+  },
   data() {
     return {
       logo,
@@ -47,11 +47,11 @@ export default {
 .container {
   background: #f4f7fc;
   height: 100vh;
-  max-width: 1400px;
+  max-width: 1440px;
 }
 .sub-container {
   width: 100%;
-  max-width: calc(100vw - 40px);
+  max-width: calc(100vw - 284px);
   margin: 0px auto;
   padding: 50px 0px 0px 0px;
 }
@@ -59,22 +59,22 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.subtitle{
+.subtitle {
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
   line-height: 42px;
-  color: #B3BECF;
+  color: #b3becf;
   max-width: 484px;
 }
-.left{
-    margin-top: 155px;
+.left {
+  margin-top: 155px;
 }
-.right{
+.right {
   margin-top: 67px;
 }
-@media (max-width: 820px){
-  .main{
+@media (max-width: 820px) {
+  .main {
     flex-wrap: wrap;
     justify-content: center;
   }
