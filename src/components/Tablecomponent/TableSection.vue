@@ -1,31 +1,6 @@
 <template>
   <div class="main-wrapp">
-    <div class="head">
-      <img class="bell" src="@/assets/bell.svg" alt="" srcset="" />
-      <h1 class="name">Kingsley Omin</h1>
-      <div class="aka"><p>KO</p></div>
-      <img class="arrow" src="@/assets/downarrow.svg" alt="" srcset="" />
-    </div>
-    <div class="nav">
-      <div>
-        <h3 class="amount">Hello Kingsley 👋🏿</h3>
-      </div>
-      <div>
-        <button>Transfer Funds</button>
-        <button>Transfer Funds</button>
-      </div>
-    </div>
-    <div class="currency">
-      <div class="naira">
-        <div class="amount">₦00.00</div>
-        <h4>Naira Balance</h4>
-      </div>
-      <div class="naira">
-        <div class="amount">$00.00</div>
-        <div class="balance"><h4>Dollar Balance</h4></div>
-      </div>
-    </div>
-    <h2 class="table-headtext">Recent Transactions</h2>
+   
     <table>
       <tr class="table-heading">
         <th>Transaction Type</th>
@@ -61,40 +36,31 @@
         <td>NGN 30,000</td>
       </tr> -->
     </table>
+    
   </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    tableData: [
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "successful",
-        amount: "NGN 30,000",
-      },
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "failure",
-        amount: "NGN 30,000",
-      },
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "successful",
-        amount: "NGN 30,000",
-      },
-    ],
-  }),
+  props:{ tableData:{type:Array} },
+  
 };
 </script>
 
 <style lang="scss" scoped>
+.empty-image {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+.buttons {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.active-button {
+  display: flex;
+  gap: 20px;
+}
 .head {
   display: flex;
   justify-content: end;
@@ -128,7 +94,7 @@ export default {
   margin-top: 36px;
 }
 .main-wrapp {
-  width: calc(100% - 64px);
+  // width: calc(100% - 64px);
   margin-left: auto;
   margin-right: auto;
 }

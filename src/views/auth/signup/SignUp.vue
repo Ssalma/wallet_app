@@ -18,7 +18,7 @@
             label="Password"
             v-model="user.password"
           />
-          <button-component button-txt="Create Account" class="btn--blue" />
+          <button-component button-txt="Create Account" variant="blue" />
           <h2>
             Already have an account?
             <span> <router-link to="/auth/login">Sign In</router-link></span>
@@ -58,7 +58,7 @@ export default {
   border: 1px solid #dee3eb;
   border-radius: 8px;
   padding: 32px 40px;
-width:528px;
+  width: 528px;
   max-width: 528px;
 }
 .names {

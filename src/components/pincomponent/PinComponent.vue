@@ -104,7 +104,7 @@ export default {
   max-width: 264px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 54px;
+  gap: 24px;
   padding: 20px;
   input {
     @include inputTypography();

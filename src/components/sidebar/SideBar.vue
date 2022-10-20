@@ -67,7 +67,7 @@
               fill="#B3BECF"
             />
           </svg>
-          Transaction</router-link
+          Transactions</router-link
         >
       </li>
       <li>
