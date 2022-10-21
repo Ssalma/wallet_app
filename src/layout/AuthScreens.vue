@@ -47,11 +47,11 @@ export default {
 .container {
   background: #f4f7fc;
   height: 100vh;
-  max-width: 1400px;
+  max-width: 1440px;
 }
 .sub-container {
   width: 100%;
-  max-width: calc(100vw - 40px);
+  max-width: calc(100vw - 284px);
   margin: 0px auto;
   padding: 50px 0px 0px 0px;
 }

@@ -74,6 +74,7 @@
             label="Pin"
             v-model="user.password"
             maxlength="4"
+            variantClass="hide"
           />
           <button-component button-txt="Transfer" variant="blue" />
         </form>
