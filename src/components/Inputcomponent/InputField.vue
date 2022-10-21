@@ -13,7 +13,8 @@
 
       <div
         v-if="type === 'password'"
-        class="eye-toggle"
+        :class="[`btn--${variantClass}`]"
+        v-bind="$attrs"
         @click="toggleInputIcon"
       >
         <div v-if="visibility" class="eye-open">
@@ -40,6 +41,10 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    variantClass: {
+      type: String,
+      default: "eye-toggle",
     },
   },
   data() {
@@ -77,12 +82,17 @@ export default {
     position: relative;
     width: 100%;
     max-width: 465px;
-    .eye-toggle {
-      position: absolute;
-      right: 0;
-      top: 14px;
-      cursor: pointer;
-      padding-right: 10px;
+    .btn {
+      &--eye-toggle {
+        position: absolute;
+        right: 0;
+        top: 14px;
+        cursor: pointer;
+        padding-right: 10px;
+      }
+      &--hide {
+        display: none;
+      }
     }
   }
 
