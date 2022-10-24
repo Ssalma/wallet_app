@@ -11,7 +11,7 @@ to reset your passsword"
           label="Email Address"
           type="email"
         />
-        <login-btn buttonTxt="Recover Password" class="btn--blue"></login-btn>
+        <login-btn buttonTxt="Recover Password" variant="blue" type="button" @click="send()"></login-btn>
         <router-link to="/auth/login">Return to Log In</router-link>
       </form>
     </template>
@@ -22,6 +22,7 @@ to reset your passsword"
 import AuthScreen from "@/layout/AuthScreens.vue";
 import LoginBtn from "@/components/button/ButtonComponent.vue";
 import InputField from "@/components/Inputcomponent/InputField.vue";
+import axios from "axios"
 export default {
   components: {
     AuthScreen,
@@ -34,6 +35,17 @@ export default {
       emailAddress: ""
     };
   },
+  methods: {
+   async send(){
+      await axios.post("http://192.168.100.69:3249/api/v1/user/reset/send", {
+        email: this.emailAddress,
+        link: "http://http://192.168.100.95:8080/auth/resetpassword"
+      }).then((response)=>{
+        localStorage.setItem("email", this.emailAddress)
+        console.log(response)
+      })
+    }
+  }
 };
 </script>
 

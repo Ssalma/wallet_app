@@ -7,10 +7,10 @@
       <div class="container-div">
         <h5 class="container-text1">Kindly enter your OTP to</h5>
         <h5 class="container-text1">verify account</h5>
-        <PinComponent class="abeeku" />
+        <PinComponent/>
 
         <h5 class="container-text2">
-          Didn’t get the code?
+          Didn't get the code?
           <router-link to="/">Resend</router-link>
         </h5>
         <h5 class="container-text2">00:59</h5>
@@ -28,6 +28,7 @@ export default {
     AuthScreen,
     PinComponent,
   },
+  
 };
 </script>
 
@@ -52,15 +53,13 @@ export default {
   border: 1px solid #dee3eb;
   border-radius: 8px;
   width: 528px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 32px 50px;
   max-width: 528px;
 }
-.abeeku {
-  max-width: 100%;
-}
 
-.abeeku input {
-  padding: 30%;
-}
 </style>

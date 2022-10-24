@@ -19,7 +19,12 @@
           v-model="user.password1"
           class="input-fields"
         />
-        <ButtonComponent buttonTxt="Reset Password" class="btn--blue" />
+        <ButtonComponent
+          buttonTxt="Reset Password"
+          class="btn--blue"
+          type="button"
+          @click="reset()"
+        />
       </div>
     </template>
   </auth-screen>
@@ -28,6 +33,7 @@
 <script>
 import AuthScreen from "@/layout/AuthScreens.vue";
 import { InputField, ButtonComponent } from "@/components";
+import axios from "axios";
 export default {
   components: {
     AuthScreen,
@@ -36,8 +42,35 @@ export default {
   },
   data() {
     return {
-      user: {},
+      user: {
+        password: "",
+        password1: "",
+      },
     };
+  },
+  methods: {
+    async reset() {
+      if (this.user.password.length < 8) {
+        console.warn("should be longer");
+      } else if (this.user.password !== this.user.password1) {
+        console.warn("This is not valid");
+      } else {
+        let email = localStorage.getItem("email");
+        await axios
+          .post("", {
+            email,
+            password: this.user.password,
+            passwordConfirm: this.user.password1,
+          })
+          .then((response) => {
+            console.log(response),
+              this.$router.push({ path: "/auth/otpcreatepin" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
   },
 };
 </script>

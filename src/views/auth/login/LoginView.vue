@@ -12,7 +12,7 @@
           <!-- router-link goes below the button without the div -->
           <router-link to="/auth/forgetpassword">Forget Password?</router-link>
         </div>
-        <login-btn buttonTxt="Log In" class="btn--blue"></login-btn>
+        <login-btn buttonTxt="Log In" variant="blue"></login-btn>
         <p class="para">
           Don't have an account? <router-link to="/auth/signup">Register now</router-link>
         </p>
