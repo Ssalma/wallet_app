@@ -8,6 +8,7 @@ import SignUp from "@/views/auth/signup/SignUp";
 import ProfileView from "@/views/dashboard/profile/ProfileView";
 import TransactionsView from "@/views/dashboard/transactions/TransactionsView";
 import HomeView from "@/views/dashboard/home/HomeView";
+import WalletHome from "@/views/WalletHome";
 
 export {
   LoginView,
@@ -20,4 +21,5 @@ export {
   ProfileView,
   TransactionsView,
   HomeView,
+  WalletHome,
 };

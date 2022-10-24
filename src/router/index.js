@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ComponentView from "../views/ComponentView.vue";
-import { HomeView, ProfileView, TransactionsView } from "../views";
+import { HomeView, ProfileView, TransactionsView, WalletHome } from "../views";
 // import DashboardLayout from "../layout/Dashboard.vue";
 import {
   LoginView,
@@ -15,6 +15,11 @@ const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
 
 const routes = [
+  {
+    path: "/",
+    name: "wallet-home",
+    component: WalletHome,
+  },
   {
     path: "/dashboard/home",
     name: "home",
