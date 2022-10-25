@@ -73,10 +73,73 @@ export default {
 .right {
   margin-top: 67px;
 }
-@media (max-width: 820px) {
+
+@media (max-width: 1190px) {
+
+  .sub-container {
+    width: 100%;
+    max-width: calc(100vw - 104px);
+  }
+
+  /* .left {
+    margin-top: 20px;
+  } */
+
+}
+
+@media (max-width: 983px) {
+  .container {
+    height: auto;
+  }
   .main {
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .left {
+    margin-top: 90px;
+  }
+  .right {
+    margin-top: auto;
+  }
+
+  .sub-container {
+    width: 100%;
+    max-width: calc(100vw - 100px);
+    margin: 0px auto;
+    padding: 50px 0px 0px 0px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 25px;
+    text-align: center;
   }
 }
+
+@media (max-width: 475px) {
+  .sub-container {
+    max-width: calc(100vw - 40px);
+  }
+}
+
+@media (max-width: 594px){
+  .container {
+    height: 100vh;
+  }
+}
+
+@media (max-width: 983px){
+  .container {
+    height: 100vh;
+  }
+}
+
 </style>

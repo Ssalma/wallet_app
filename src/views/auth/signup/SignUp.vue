@@ -1,5 +1,5 @@
 <template>
-  <auth-screen title="Create Your Account" subtitle="Let’s get you started">
+  <auth-screen title="Create Your Account" subtitle="Let's get you started">
     <template #content>
       <div class="main-div">
         <form>
@@ -53,7 +53,7 @@ export default {
     async signUp() {
       console.log(this.First);
       await axios
-        .post("http://192.168.100.97:3249/api/v1/user/signup", {
+        .post("http://192.168.100.94:3249/api/v1/user/signup", {
           firstName: this.First,
           lastName: this.Last,
           email: this.email,
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-div {
   margin-left: auto;
   margin-right: auto;
@@ -94,9 +94,8 @@ export default {
   display: grid;
   grid-template-columns: auto auto;
   gap: 16px;
-
-  /* justify-content: space-between; */
 }
+
 form {
   margin-left: auto;
   margin-right: auto;
@@ -104,6 +103,7 @@ form {
   flex-direction: column;
   gap: 24px;
 }
+
 h2 {
   font-weight: 400;
   font-size: 14px;
@@ -111,9 +111,44 @@ h2 {
   text-align: center;
   color: #6d7a98;
 }
-.btn--blue {
-}
+
 a {
   text-decoration: none;
+}
+
+@media (max-width: 831px) {
+  .main-div {
+    max-width: 490px;
+  }
+}
+
+form {
+  gap: 14px;
+}
+
+@media (max-width: 562px) {
+  .main-div {
+    max-width: 390px;
+    padding: 12px 20px;
+  }
+
+  .names {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 423px) {
+  .main-div {
+    max-width: 340px;
+    padding: 20px 20px;
+  }
+
+  .names {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 16px;
+  }
 }
 </style>

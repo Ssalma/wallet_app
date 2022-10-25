@@ -58,6 +58,8 @@ export default {
     async reset() {
       // let email = localStorage.getItem("email");
       // let email = this.$store.state.userEmail;
+      const token = this.$route.params.token
+      console.log('token', token);
       console.log(this.userEmail);
       if (this.user.password.length < 8) {
         console.warn("should be longer");
@@ -65,11 +67,18 @@ export default {
         console.warn("This is not valid");
       } else {
         await axios
-          .post("http://192.168.100.69:3249/api/v1/user/password/reset", {
-            email: this.userEmail,
-            password: this.user.password,
-            passwordConfirm: this.user.password1,
-          })
+          .post(
+            "http://192.168.100.69:3249/api/v1/user/password/reset",
+            {
+              email: this.userEmail,
+              password: this.user.password,
+              passwordConfirm: this.user.password1,
+            }, {
+              headers: {
+                "token": token,
+              },
+            },
+          )
           .then((response) => {
             console.log(response), this.$router.push({ path: "/auth/login" });
           })

@@ -43,7 +43,7 @@ export default {
       const newpin = this.Pin.toString();
       const newmail = localStorage.getItem("signEmail");
       await axios
-        .post("http://192.168.100.97:3249/api/v1/user/otp/verify", {
+        .post("http://192.168.100.69:3249/api/v1/user/otp/verify", {
           email: newmail,
           OTP: newpin,
         })
@@ -88,11 +88,13 @@ export default {
   padding: 32px 50px;
   max-width: 528px;
 }
-/* .abeeku {
-  max-width: 100%;
-}
 
-.abeeku input {
-  padding: 30%;
-} */
+@media (max-width: 619px) {
+  .container-div{
+    max-width: 400px;
+    min-width: 100px;
+    display: block;
+    margin: 0px auto;
+  }
+}
 </style>
