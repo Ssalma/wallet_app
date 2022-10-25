@@ -4,21 +4,18 @@
       <div class="main-div">
         <form>
           <div class="names">
-            <InputField type="text" label="First Name" v-model="user.First" />
-            <InputField type="text" label="Last Name" v-model="user.Last" />
+            <InputField type="text" label="First Name" v-model="First" />
+            <InputField type="text" label="Last Name" v-model="Last" />
           </div>
-          <InputField type="email" label="email" v-model="user.email" />
-          <InputField
-            type="number"
-            label="Phone Number"
-            v-model="user.number"
+          <InputField type="email" label="email" v-model="email" />
+          <InputField type="number" label="Phone Number" v-model="number" />
+          <InputField type="password" label="Password" v-model="password" />
+          <button-component
+            type="button"
+            @click="signUp()"
+            button-txt="Create Account"
+            variant="blue"
           />
-          <InputField
-            type="password"
-            label="Password"
-            v-model="user.password"
-          />
-          <button-component button-txt="Create Account" variant="blue" />
           <h2>
             Already have an account?
             <span> <router-link to="/auth/login">Sign In</router-link></span>
@@ -31,6 +28,7 @@
 
 <script scoped>
 import AuthScreen from "@/layout/AuthScreens.vue";
+import axios from "axios";
 import InputField from "@/components/Inputcomponent/InputField.vue";
 import ButtonComponent from "@/components/button/ButtonComponent.vue";
 export default {
@@ -41,11 +39,41 @@ export default {
   },
   data() {
     return {
-      user: {},
+      First: "",
+      Last: "",
+      email: "",
+      number: "",
+      password: "",
     };
   },
   updated() {
     console.log(this.newemail);
+  },
+  methods: {
+    async signUp() {
+      console.log(this.First);
+      await axios
+        .post("http://192.168.100.97:3249/api/v1/user/signup", {
+          firstName: this.First,
+          lastName: this.Last,
+          email: this.email,
+          phoneNumber: this.number,
+          userPassword: this.password,
+        })
+        .then((response) => {
+          localStorage.setItem("signEmail", this.email);
+          localStorage.setItem("signPassword", this.password);
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      (this.First = ""),
+        (this.Last = ""),
+        (this.email = ""),
+        (this.number = ""),
+        (this.password = "");
+    },
   },
 };
 </script>
