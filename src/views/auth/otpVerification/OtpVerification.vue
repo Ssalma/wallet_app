@@ -7,11 +7,15 @@
       <div class="container-div">
         <h5 class="container-text1">Kindly enter your OTP to</h5>
         <h5 class="container-text1">verify account</h5>
-        <PinComponent :inputValue="Pin" @update:inputValue="(newvalue) => (Pin = newvalue)"/>
-        <p>{{Pin}}</p>
+        <PinComponent
+          :inputValue="Pin"
+          @update:inputValue="(newvalue) => (Pin = newvalue)"
+          @keyup.enter="verifyOtp"
+        />
+        <p>{{ Pin }}</p>
 
         <h5 class="container-text2">
-          Didn’t get the code?
+          Didn't get the code?
           <router-link to="/">Resend</router-link>
         </h5>
         <h5 class="container-text2">00:59</h5>
@@ -23,17 +27,35 @@
 <script>
 import AuthScreen from "@/layout/AuthScreens.vue";
 import PinComponent from "@/components/pincomponent/PinComponent.vue";
-
+import axios from "axios";
 export default {
   components: {
     AuthScreen,
     PinComponent,
   },
-  data(){
-    return{
-      Pin: null
-    }
-  }
+  data() {
+    return {
+      Pin: null,
+    };
+  },
+  methods: {
+    async verifyOtp() {
+      const newpin = this.Pin.toString();
+      const newmail = localStorage.getItem("signEmail");
+      await axios
+        .post("http://192.168.100.97:3249/api/v1/user/otp/verify", {
+          email: newmail,
+          OTP: newpin,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/auth/login");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+  },
 };
 </script>
 

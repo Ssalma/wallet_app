@@ -1,4 +1,13 @@
 <template>
+  <div
+    class="response-message"
+    v-if="isSuccessful || isFailed"
+    :class="{ error: isFailed, success: isSuccessful }"
+  >
+    <p>{{ responseMessage }}</p>
+    <i class="uil uil-exclamation-triangle" v-if="isFailed"></i>
+    <i class="uil uil-check-circle" v-if="isSuccessful"></i>
+  </div>
   <auth-screen title="Log In" subtitle="Great to have you back">
     <template #content>
       <form>
@@ -38,6 +47,9 @@ export default {
     return {
       email: "",
       password: "",
+      isSuccessful: false,
+      isFailed: false,
+      responseMessage: "",
     };
   },
   methods: {
@@ -48,18 +60,27 @@ export default {
           password: this.password,
         })
         .then((response) => {
-       
           console.log(response);
           let token = response.data.data.token;
           localStorage.setItem("token", token);
-          if (token.applied === false) {
-            this.$router.push("/auth/otpcreatepin");
-          } else {
-            this.$router.push("/dashboard");
-          }
+          this.responseMessage = "Login Successful";
+          this.isSuccessful = true;
+          setTimeout(() => {
+            this.isSuccessful = false;
+            if (!response.data.data.pin) {
+              this.$router.push("/auth/otpcreatepin");
+            } else {
+              this.$router.push("/dashboard");
+            }
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);
+          this.responseMessage = "Login Failed";
+          this.isFailed = true;
+          setTimeout(() => {
+            this.isFailed = false;
+          }, 2000);
         });
       (this.email = ""), (this.password = "");
     },
@@ -96,6 +117,35 @@ a {
   line-height: 16px;
   letter-spacing: 0.4px;
   color: #6d7a98;
+}
+
+.success,
+.error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: green;
+  background: rgb(171, 228, 171);
+  border: none;
+  /* border-radius: 10px; */
+  margin-bottom: 20px;
+  text-align: center;
+}
+.error {
+  color: black;
+  background: rgb(235, 146, 146);
+}
+
+.response-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 375px) {
   form {

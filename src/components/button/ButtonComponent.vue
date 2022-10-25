@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <button :class="[`btn--${variant}`]" v-bind="$attrs">
-      <img :src="iconAdd" :alt="add" class="position-Icon" v-if="icon" />{{
-        buttonTxt
-      }}
-    </button>
-  </div>
+  <!-- <div> -->
+  <button :class="[`btn--${variant}`]" v-bind="$attrs">
+    <img :src="iconAdd" :alt="add" class="position-Icon" v-if="icon" />{{
+      buttonTxt
+    }}
+  </button>
+  <!-- </div> -->
 </template>
 
 <script>

@@ -19,7 +19,12 @@
           v-model="user.password1"
           class="input-fields"
         />
-        <ButtonComponent buttonTxt="Reset Password" class="btn--blue" />
+        <ButtonComponent
+          buttonTxt="Reset Password"
+          class="btn--blue"
+          type="button"
+          @click="reset()"
+        />
       </div>
     </template>
   </auth-screen>
@@ -28,6 +33,8 @@
 <script>
 import AuthScreen from "@/layout/AuthScreens.vue";
 import { InputField, ButtonComponent } from "@/components";
+import axios from "axios";
+import { mapState } from "vuex";
 export default {
   components: {
     AuthScreen,
@@ -36,8 +43,41 @@ export default {
   },
   data() {
     return {
-      user: {},
+      user: {
+        password: "",
+        password1: "",
+      },
     };
+  },
+  computed: {
+    ...mapState({
+      userEmail: (state) => state.userEmail,
+    }),
+  },
+  methods: {
+    async reset() {
+      // let email = localStorage.getItem("email");
+      // let email = this.$store.state.userEmail;
+      console.log(this.userEmail);
+      if (this.user.password.length < 8) {
+        console.warn("should be longer");
+      } else if (this.user.password !== this.user.password1) {
+        console.warn("This is not valid");
+      } else {
+        await axios
+          .post("http://192.168.100.69:3249/api/v1/user/password/reset", {
+            email: this.userEmail,
+            password: this.user.password,
+            passwordConfirm: this.user.password1,
+          })
+          .then((response) => {
+            console.log(response), this.$router.push({ path: "/auth/login" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
   },
 };
 </script>
