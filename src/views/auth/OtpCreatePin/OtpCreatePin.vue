@@ -74,7 +74,7 @@ export default {
     createPin() {
       if (this.Pin) {
         const newPin = this.Pin.toString();
-        // console.log(typeof newPin);
+        const token = localStorage.getItem("token");
         this.$store.commit("SET_LOADING", true);
         axios
           .post(
@@ -82,8 +82,7 @@ export default {
             { pin: newPin },
             {
               headers: {
-                token:
-                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxX01lZTZyZDFtT2p6OGFyRzFlRiIsImVtYWlsIjoiZ2VvcmdlQG1haWwuY29tIiwic2FsdCI6IiQyYiQxMCRzZnM2TFR5RFFMSW9wOE9pUnVsdTR1IiwicGFzc3dvcmQiOiIzOWVjNjkwNjQ4MzUwMThlZTRhZGFmMmE4NjRkM2I3MGZhNDNhZTk4ODkxMGNiMzg5YzZlNTFhZmU3Mzc4NjNkIiwiZmlyc3ROYW1lIjoiR2VvcmdlIiwibGFzdE5hbWUiOiJCb2FreWUiLCJpYXQiOjE2NjY2MTk2NTcsImV4cCI6MTY2NjY3MDA1N30.J1IrVuXDOFjS_kgBdkEgcUDVWJLLZUC_PIiuwM3QOwE",
+                token,
               },
             }
           )

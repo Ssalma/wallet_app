@@ -64,9 +64,10 @@ export default {
           localStorage.setItem("signEmail", this.email);
           localStorage.setItem("signPassword", this.password);
           console.log(response);
+          this.$router.push("/auth/otpverification");
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.message);
         });
       (this.First = ""),
         (this.Last = ""),
