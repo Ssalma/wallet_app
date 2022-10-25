@@ -2,19 +2,21 @@
   <auth-screen title="Log In" subtitle="Great to have you back">
     <template #content>
       <form>
-        <input-field
-          v-model="emailAddress"
-          label="Email Address"
-          type="email"
-        />
-        <input-field v-model="user.password" label="Password" type="password" />
+        <input-field v-model="email" label="Email Address" type="email" />
+        <input-field v-model="password" label="Password" type="password" />
         <div>
           <!-- router-link goes below the button without the div -->
           <router-link to="/auth/forgetpassword">Forget Password?</router-link>
         </div>
-        <login-btn buttonTxt="Log In" variant="blue"></login-btn>
+        <login-btn
+          type="button"
+          @click="logIn()"
+          buttonTxt="Log In"
+          class="btn--blue"
+        ></login-btn>
         <p class="para">
-          Don't have an account? <router-link to="/auth/signup">Register now</router-link>
+          Don't have an account?
+          <router-link to="/auth/signup">Register now</router-link>
         </p>
       </form>
     </template>
@@ -25,6 +27,7 @@
 import LoginBtn from "@/components/button/ButtonComponent.vue";
 import AuthScreen from "@/layout/AuthScreens.vue";
 import InputField from "@/components/Inputcomponent/InputField.vue";
+import axios from "axios";
 export default {
   components: {
     AuthScreen,
@@ -33,8 +36,32 @@ export default {
   },
   data() {
     return {
-      user: {},
+      email: "",
+      password: "",
     };
+  },
+  methods: {
+    async logIn() {
+      await axios
+        .post("http://192.168.100.97:3249/api/v1/user/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log(response);
+          let token = response.data.data.token;
+          localStorage.setItem("token", token);
+          if (token.applied === false) {
+            this.$router.push("/auth/otpcreatepin");
+          } else {
+            this.$router.push("/dashboard");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      (this.email = ""), (this.password = "");
+    },
   },
 };
 </script>
@@ -69,8 +96,8 @@ a {
   letter-spacing: 0.4px;
   color: #6d7a98;
 }
-@media (max-width: 375px){
-  form{
+@media (max-width: 375px) {
+  form {
     min-width: 328px;
   }
 }
