@@ -83,6 +83,7 @@
             type="button"
             @click="makeTransfer"
           />
+          <p id="wrongPin"></p>
         </form>
       </template>
     </DashboardModal>
@@ -278,6 +279,9 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          let wrongPin = document.getElementById("wrongPin");
+          console.log(wrongPin);
+          wrongPin.innerHTML = "Enter correct Pin";
         });
       this.user.number1 = "";
     },
