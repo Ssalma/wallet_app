@@ -87,8 +87,7 @@ export default {
   }
 
   .input__item {
-    height: 48px;
-
+    // height: 48px;
     border-radius: 4px;
     padding: 10px;
     border: 1px solid #dee3eb;

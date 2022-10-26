@@ -7,6 +7,7 @@ import HelloWorld from "./HelloWorld";
 import DashboardModal from "./modal/DashboardModal";
 import ButtonComponent from "./button/ButtonComponent";
 import pagination from "./pagination/paginationComp";
+import image404 from "./pageNotFound/PageNotFound"
 
-export {HelloWorld, ButtonComponent, DashboardModal, pagination, InputField, TableSection, PinComponent, SideBar, NavBar};
+export {HelloWorld, ButtonComponent, DashboardModal, pagination, InputField, TableSection, PinComponent, SideBar, NavBar, image404};
 

@@ -151,4 +151,30 @@ form {
     gap: 16px;
   }
 }
+
+@media (max-width: 360px) {
+  .main-div {
+    max-width: 300px;
+    padding: 20px 20px;
+  }
+
+  .names {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 280px) {
+  .main-div {
+    max-width: 245px;
+    padding: 10px;
+  }
+
+  .names {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+  }
+}
 </style>

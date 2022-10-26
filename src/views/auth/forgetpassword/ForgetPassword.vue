@@ -112,7 +112,6 @@ a {
   color: green;
   background: rgb(171, 228, 171);
   border: none;
-  /* border-radius: 10px; */
   margin-bottom: 20px;
   text-align: center;
 }
@@ -127,9 +126,10 @@ a {
   align-items: center;
 }
 
-@media (min-width: 768px) {
-  /* form{
-    width: 528px;
-  } */
+@media (max-width: 540px) {
+  form{
+    min-width: 330px;
+    margin: 50px auto;
+  }
 }
 </style>

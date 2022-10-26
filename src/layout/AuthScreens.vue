@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   background: #f4f7fc;
   height: 100vh;
@@ -75,16 +75,10 @@ export default {
 }
 
 @media (max-width: 1190px) {
-
   .sub-container {
     width: 100%;
     max-width: calc(100vw - 104px);
   }
-
-  /* .left {
-    margin-top: 20px;
-  } */
-
 }
 
 @media (max-width: 983px) {
@@ -96,7 +90,6 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 50px;
   }
 
   .left {
@@ -130,16 +123,29 @@ export default {
   }
 }
 
-@media (max-width: 594px){
+@media (max-width: 375px) {
+
+  .title {
+    font-size: 20px;
+  }
+  .subtitle {
+    font-size: 18px;
+  }
+  .sub-container {
+    padding: 10px 0px 0px 0px;
+  }
+
+  .left {
+    margin-top: 40px;
+  }
+  .right {
+    margin-top: auto;
+  }
+}
+
+@media (max-width: 983px) {
   .container {
     height: 100vh;
   }
 }
-
-@media (max-width: 983px){
-  .container {
-    height: 100vh;
-  }
-}
-
 </style>
