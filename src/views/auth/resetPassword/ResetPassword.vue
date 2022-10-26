@@ -59,17 +59,23 @@ export default {
       // let email = localStorage.getItem("email");
       // let email = this.$store.state.userEmail;
       console.log(this.userEmail);
+      const token = this.$route.params.token;
       if (this.user.password.length < 8) {
         console.warn("should be longer");
       } else if (this.user.password !== this.user.password1) {
         console.warn("This is not valid");
       } else {
         await axios
-          .post("http://192.168.100.69:3249/api/v1/user/password/reset", {
-            email: this.userEmail,
-            password: this.user.password,
-            passwordConfirm: this.user.password1,
-          })
+          .post(
+            "http://192.168.100.97:3249/api/v1/user/password/reset",
+            {
+              password: this.user.password,
+              passwordConfirm: this.user.password1,
+            },
+            {
+              headers: { token },
+            }
+          )
           .then((response) => {
             console.log(response), this.$router.push({ path: "/auth/login" });
           })

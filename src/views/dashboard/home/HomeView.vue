@@ -2,7 +2,7 @@
   <div class="home">
     <div class="nav">
       <div>
-        <h3 class="amount">Hello Kingsley 👋🏿</h3>
+        <h3 class="amount">Hello {{ singleUser.firstName }} 👋🏿</h3>
       </div>
       <div class="active-button">
         <ButtonComponent
@@ -20,17 +20,17 @@
     </div>
     <div class="currency">
       <div class="naira">
-        <div class="amount">₦00.00</div>
+        <div class="amount">₦{{ getBalance }}</div>
         <h4>Naira Balance</h4>
       </div>
       <div class="naira">
-        <div class="amount">$00.00</div>
+        <div class="amount">${{ getDollar }}</div>
         <div class="balance"><h4>Dollar Balance</h4></div>
       </div>
     </div>
-    <div v-if="tableData.length > 0">
+    <div v-if="transactions.length > 0">
       <h2 class="table-headtext">Recent Transactions</h2>
-      <TableSection :tableData="tableData" />
+      <TableSection :tableData="transactions.slice(0, 10)" />
     </div>
     <div v-else>
       <h2 class="table-headtext">Transaction History</h2>
@@ -48,7 +48,8 @@
                 type="radio"
                 id="html"
                 name="fav_language"
-                value="HTML"
+                :value="'naira'"
+                v-model="radioValue"
               />
               <label>Naira</label>
             </div>
@@ -58,7 +59,8 @@
                 type="radio"
                 id="css"
                 name="fav_language"
-                value="CSS"
+                :value="'dollar'"
+                v-model="radioValue"
               />
               <label>Dollar</label>
             </div>
@@ -75,7 +77,12 @@
             v-model="user.password"
             maxlength="4"
           />
-          <button-component button-txt="Transfer" variant="blue" />
+          <button-component
+            button-txt="Transfer"
+            variant="blue"
+            type="button"
+            @click="makeTransfer"
+          />
         </form>
       </template>
     </DashboardModal>
@@ -91,7 +98,8 @@
                 type="radio"
                 id="html"
                 name="fav_language"
-                value="HTML"
+                :value="'naira'"
+                v-model="radioValue"
               />
               <label>Naira</label>
             </div>
@@ -101,16 +109,18 @@
                 type="radio"
                 id="css"
                 name="fav_language"
-                value="CSS"
+                :value="'dollar'"
+                v-model="radioValue"
               />
               <label>Dollar</label>
             </div>
           </div>
-          <InputField type="number" label="Amount" v-model="user.number" />
+          <InputField type="number" label="Amount" v-model="user.number1" />
           <button-component
             button-txt="Fund Wallet"
             variant="blue"
-            @click="openPinmodal"
+            type="button"
+            @click="makeDeposit"
           />
         </form>
       </template>
@@ -133,6 +143,9 @@ import ButtonComponent from "@/components/button/ButtonComponent.vue";
 import DashboardModal from "@/components/modal/DashboardModal.vue";
 import InputField from "@/components/Inputcomponent/InputField.vue";
 import PinComponent from "@/components/pincomponent/PinComponent.vue";
+import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
+// import { format } from "date-fns";
 
 export default {
   name: "HomeView",
@@ -145,35 +158,64 @@ export default {
   },
 
   data: () => ({
-    user: {},
+    user: {
+      password: null,
+      account: null,
+      number: null,
+      number1: null,
+    },
     openTransfer: false,
     openFund: false,
     openPin: false,
-    tableData: [
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "successful",
-        amount: "NGN 30,000",
-      },
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "failure",
-        amount: "NGN 30,000",
-      },
-      {
-        tranType: "Wallet Deposit",
-        date: "May 27, 2020 | ",
-        time: " 12:38 PM",
-        status: "successful",
-        amount: "NGN 30,000",
-      },
-    ],
+    radioValue: "naira",
   }),
+  async created() {
+    let userId = localStorage.getItem("userID");
+    console.log(userId);
+    await this.getSingleUser(userId);
+    await this.getTransactions();
+    await this.getRates();
+    this.$store.commit("SET_FIRST_NAME", this.singleUser.firstName);
+    this.$store.commit("SET_LAST_NAME", this.singleUser.lastName);
+    console.log(this.singleUser);
+    console.log(this.currencyRate);
+  },
+  computed: {
+    ...mapGetters({
+      singleUser: "getSingleUser",
+      transactions: "getTransactions",
+      currencyRate: "getRates",
+    }),
+    getBalance() {
+      return this.singleUser.balance?.toFixed(2);
+    },
+    getDollar() {
+      return this.singleUser.balance * this.currencyRate;
+    },
+    // getStatus() {
+    //   if (!this.transactions.status == "successful") {
+    //     return "Failed";
+    //   } else {
+    //     return "Successful";
+    //   }
+    // },
+    // getDate() {
+    //   return format(new Date(this.transactions.createdAt), "MMM dd ',' yyyy");
+    // },
+    // getTransferType() {
+    //   if (!this.transactions.transactionType == "transfer") {
+    //     return "Deposit";
+    //   } else {
+    //     return "Transfer";
+    //   }
+    // },
+  },
   methods: {
+    ...mapActions({
+      getSingleUser: "getSingleUser",
+      getTransactions: "getTransactions",
+      getRates: "getRates",
+    }),
     closeModal() {
       this.openTransfer = false;
     },
@@ -192,6 +234,62 @@ export default {
     openPinmodal() {
       this.openFund = false;
       this.openPin = true;
+    },
+    makeTransfer() {
+      let token = localStorage.getItem("token");
+      axios
+        .post(
+          "http://192.168.100.97:3249/api/v1/transaction/transfer",
+          {
+            pin: this.user.password,
+            currency: this.radioValue,
+            amount: this.user.number,
+            accountNumber: this.user.account,
+          },
+          {
+            headers: { token },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.user.password = "";
+      this.user.account = "";
+      this.user.number = "";
+    },
+    makeDeposit() {
+      let token = localStorage.getItem("token");
+      axios
+        .post(
+          "http://192.168.100.97:3249/api/v1/transaction/deposit",
+          {
+            currency: this.radioValue,
+            amount: this.user.number1,
+          },
+          {
+            headers: { token },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.user.number1 = "";
+    },
+  },
+  watch: {
+    user: {
+      handler() {
+        console.log("a");
+        let userId = localStorage.getItem("userID");
+        this.getSingleUser(userId);
+      },
+      deep: true,
     },
   },
 };

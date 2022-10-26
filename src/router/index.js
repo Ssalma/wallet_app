@@ -69,7 +69,7 @@ const routes = [
     component: OtpVerification,
   },
   {
-    path: "/auth/resetpassword",
+    path: "/auth/resetpassword/:token",
     name: "resetpassword",
     component: ResetPassword,
   },

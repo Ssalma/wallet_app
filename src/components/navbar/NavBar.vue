@@ -13,9 +13,9 @@
         fill="#3A434B"
       />
     </svg>
-    <p class="user-name">Kingsley Omin</p>
+    <p class="user-name">{{ firstName }} {{ lastName }}</p>
     <div class="avatar">
-      <p class="initials">KO</p>
+      <p class="initials">{{ getInitials }}</p>
     </div>
     <svg
       width="12"
@@ -31,7 +31,20 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  // props: ["firstName", "lastName", "initials"],
+  computed: {
+    ...mapState({
+      firstName: (state) => state.firstName,
+      lastName: (state) => state.lastName,
+    }),
+
+    getInitials() {
+      return `${this.firstName.charAt(0)} ${this.lastName.charAt(0)}`;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

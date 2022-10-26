@@ -46,9 +46,9 @@ export default {
   methods: {
     async send() {
       await axios
-        .post("http://192.168.100.69:3249/api/v1/user/reset/send", {
+        .post("http://192.168.100.94:3249/api/v1/user/reset/send", {
           email: this.emailAddress,
-          link: "http://192.168.100.93:8080/auth/resetpassword",
+          link: "http://localhost:8080/auth/resetpassword",
         })
         .then((response) => {
           localStorage.setItem("email", this.emailAddress);

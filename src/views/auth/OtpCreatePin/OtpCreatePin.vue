@@ -93,6 +93,7 @@ export default {
             this.isSuccessful = true;
             setTimeout(() => {
               this.isSuccessful = false;
+              this.$router.push("/dashboard");
             }, 2000);
           })
           .catch((error) => {

@@ -1,6 +1,5 @@
 <template>
   <div class="main-wrapp">
-   
     <table>
       <tr class="table-heading">
         <th>Transaction Type</th>
@@ -9,21 +8,22 @@
         <th>Amount</th>
       </tr>
       <tr v-for="content in tableData" :key="content">
-        <td>{{ content.tranType }}</td>
+        <td>Wallet {{ getTransferType(content.transactionType) }}</td>
         <td>
-          {{ content.date }}<span>{{ content.time }}</span>
+          {{ getDate(content.createdAt) }} |
+          <span>{{ getTime(content.createdAt) }} </span>
         </td>
         <td da>
           <div :class="[`status--${content.status}`, 'status']">
             <div class="div1"><div class="div2"></div></div>
-            <p>{{ content.status }}</p>
+            <p>{{ getStatus(content.status) }}</p>
           </div>
           <!-- <div v-else class="failed">
             <img src="@/assets/failed.svg" alt="" srcset="" />
             Failed
           </div> -->
         </td>
-        <td>{{ content.amount }}</td>
+        <td>NGN {{ content.amount }}</td>
       </tr>
       <!-- <tr>
         <td>Wallet Deposit</td>
@@ -36,14 +36,40 @@
         <td>NGN 30,000</td>
       </tr> -->
     </table>
-    
   </div>
 </template>
 
 <script>
+// import { format } from "date-fns";
+import moment from "moment";
 export default {
-  props:{ tableData:{type:Array} },
-  
+  props: {
+    tableData: { type: Array },
+    transactionType: { type: String },
+    status: { type: String },
+  },
+  methods: {
+    getDate(date) {
+      return moment(date).format("LL");
+    },
+    getTime(time) {
+      return moment(time).format("LT");
+    },
+    getStatus(statusType) {
+      if (statusType == "successful") {
+        return "Successful";
+      } else {
+        return "Failed";
+      }
+    },
+    getTransferType(type) {
+      if (type == "transfer") {
+        return "Transfer";
+      } else {
+        return "Deposit";
+      }
+    },
+  },
 };
 </script>
 

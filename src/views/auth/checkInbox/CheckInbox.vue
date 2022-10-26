@@ -9,11 +9,6 @@ registered email address."
         <img :src="InboxImage" alt="" />
         <h2>Check Your Inbox</h2>
         <p>Password reset link has been sent to your inbox</p>
-        <ButtonComponent
-          buttonTxt="Reset Password"
-          class="btn--blue"
-          @click="this.$router.push({ name: 'resetpassword' })"
-        />
       </div>
     </template>
   </auth-screen>
@@ -22,11 +17,9 @@ registered email address."
 <script>
 import AuthScreen from "@/layout/AuthScreens.vue";
 import InboxImage from "@/assets/inbox.svg";
-import { ButtonComponent } from "@/components";
 export default {
   components: {
     AuthScreen,
-    ButtonComponent,
   },
   data() {
     return {
