@@ -77,7 +77,7 @@ export default {
         this.$store.commit("SET_LOADING", true);
         axios
           .post(
-            "http://192.168.100.97:3249/api/v1/user/pin/create",
+            "http://192.168.100.69:3249/api/v1/user/pin/create",
             { pin: newPin },
             {
               headers: {
@@ -120,4 +120,52 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/views/auth/OtpCreatePin/otpcreatepin.scss";
+
+@media (max-width: 375px) {
+  .create-pin {
+    min-width: 300px;
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+    text-align:start;
+  }
+}
+
+@media (max-width: 414px) {
+  .create-pin {
+    min-width: 350px;
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 23px;
+    text-align:start;
+  }
+}
+
+@media (max-width: 540px) {
+  .create-pin {
+    min-width: 300px;
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+    text-align:start;
+  }
+}
+
+
+
 </style>

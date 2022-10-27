@@ -76,7 +76,7 @@ export default {
       const newpin = this.Pin.toString();
       const newmail = localStorage.getItem("signEmail");
       await axios
-        .post("http://192.168.100.97:3249/api/v1/user/otp/verify", {
+        .post("http://192.168.100.69:3249/api/v1/user/otp/verify", {
           email: newmail,
           OTP: newpin,
         })
@@ -241,11 +241,66 @@ export default {
     opacity: 0;
   }
 }
-/* .abeeku {
-  max-width: 100%;
+
+@media (max-width: 375px) {
+  .container-div {
+    min-width: 300px;
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 5px;
+  }
+
+  .container-text1 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+    text-align: start;
+    letter-spacing: 0.2px;
+  }
 }
 
-.abeeku input {
-  padding: 30%;
-} */
+@media (max-width: 414px) {
+  .container-div {
+    min-width: 350px;
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 5px;
+  }
+
+  .container-text1 {
+    font-size: 23px;
+    text-align: start;
+  }
+}
+
+@media (min-width: 360px) {
+  .container-div {
+    margin: 50px auto;
+    width: 0px;
+    margin: none;
+    padding: 5px;
+    min-width: 300px;
+  }
+
+  .container-text1 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+    text-align: start;
+    letter-spacing: 0.2px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-div {
+    width: 528px;
+    padding: 32px 50px;
+  }
+
+  .container-text1 {
+    font-size: 24px;
+  }
+}
 </style>

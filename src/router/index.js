@@ -11,6 +11,7 @@ import {
   ResetPassword,
   SignUp,
 } from "@/views";
+import PageNotFound from "@/components/pageNotFound/PageNotFound.vue";
 const DashboardLayout = () =>
   import(/* webpackChunkName: "dashboard" */ "../layout/Dashboard.vue");
 
@@ -24,12 +25,14 @@ const routes = [
     path: "/dashboard/home",
     name: "home",
     component: HomeView,
+    meta: { requiresAuth: true },
   },
 
   {
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardLayout,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "/dashboard",
@@ -72,6 +75,7 @@ const routes = [
     path: "/auth/resetpassword/:token",
     name: "resetpassword",
     component: ResetPassword,
+    params: true,
   },
   {
     path: "/auth/signup",
@@ -97,11 +101,34 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  {
+    path: "/:pathMatch(.*)*",
+    component: PageNotFound
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to) => {
+  const token = localStorage.getItem("token");
+  let loggedIn = false;
+  if (token) {
+    // const decoded = jwt_decode(token);
+    // const expiryDate = new Date(decoded.exp * 1000);
+    // const now = new Date();
+    // if (now < expiryDate)
+    loggedIn = true;
+  }
+  if (to.meta.requiresAuth && !loggedIn) {
+    return "/";
+  }
+
+  // return true or nothing: navigation is valid
+  // return false: breaks navigation
+  // return route: redirects to that route
 });
 
 export default router;

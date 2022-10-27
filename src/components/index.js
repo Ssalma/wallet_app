@@ -8,6 +8,7 @@ import DashboardModal from "./modal/DashboardModal";
 import ButtonComponent from "./button/ButtonComponent";
 import pagination from "./pagination/paginationComp";
 import Spinner from "../components/SpinnerComponent";
+import image404 from "./pageNotFound/PageNotFound";
 
 export {
   HelloWorld,
@@ -19,5 +20,6 @@ export {
   PinComponent,
   SideBar,
   NavBar,
+  image404,
   Spinner,
 };

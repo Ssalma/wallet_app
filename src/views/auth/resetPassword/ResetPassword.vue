@@ -58,8 +58,10 @@ export default {
     async reset() {
       // let email = localStorage.getItem("email");
       // let email = this.$store.state.userEmail;
-      console.log(this.userEmail);
       const token = this.$route.params.token;
+      console.log("token", token);
+      console.log(this.userEmail);
+      // const token = this.$route.params.token;
       if (this.user.password.length < 8) {
         console.warn("should be longer");
       } else if (this.user.password !== this.user.password1) {

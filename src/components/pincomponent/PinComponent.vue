@@ -128,4 +128,24 @@ export default {
     }
   }
 }
+
+@media (max-width: 375px){
+  .pin-container {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 414px){
+  .pin-container {
+    gap: 10px;
+    padding: 20px 0px;
+  }
+}
+
+@media (max-width: 1280px){
+  .pin-container {
+    gap: 10px;
+    padding: 20px 0px;
+  }
+}
 </style>
