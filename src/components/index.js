@@ -7,6 +7,17 @@ import HelloWorld from "./HelloWorld";
 import DashboardModal from "./modal/DashboardModal";
 import ButtonComponent from "./button/ButtonComponent";
 import pagination from "./pagination/paginationComp";
+import Spinner from "../components/SpinnerComponent";
 
-export {HelloWorld, ButtonComponent, DashboardModal, pagination, InputField, TableSection, PinComponent, SideBar, NavBar};
-
+export {
+  HelloWorld,
+  ButtonComponent,
+  DashboardModal,
+  pagination,
+  InputField,
+  TableSection,
+  PinComponent,
+  SideBar,
+  NavBar,
+  Spinner,
+};

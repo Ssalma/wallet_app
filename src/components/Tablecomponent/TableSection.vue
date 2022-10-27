@@ -14,7 +14,7 @@
           <span>{{ getTime(content.createdAt) }} </span>
         </td>
         <td da>
-          <div :class="[`status--${content.status}`, 'status']">
+          <div :class="[`status--${getStatus(content.status)}`, 'status']">
             <div class="div1"><div class="div2"></div></div>
             <p>{{ getStatus(content.status) }}</p>
           </div>
@@ -211,7 +211,7 @@ table {
   p {
     padding: 5px;
   }
-  &--successful {
+  &--Successful {
     background: #eafbf1;
 
     color: #166a37;
@@ -220,7 +220,7 @@ table {
       background: #166a37;
     }
   }
-  &--failure {
+  &--Failed {
     background: #fce9e9;
     color: #700f0f;
     border: 1px solid #f6bcbc;

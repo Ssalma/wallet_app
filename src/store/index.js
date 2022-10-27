@@ -45,6 +45,7 @@ export default createStore({
   },
   actions: {
     async getSingleUser({ commit }, userId) {
+      commit("SET_LOADING", true);
       // const userId = this.state.userId;
       // const userId = localStorage.getItem("userID");
       console.log(userId);
@@ -54,12 +55,15 @@ export default createStore({
         );
         // console.log(response);
         commit("SET_SINGLE_USER", response.data.data);
+        commit("SET_LOADING", false);
         return response;
       } catch (error) {
         console.log(error);
+        commit("SET_LOADING", false);
       }
     },
     async getTransactions({ commit }) {
+      commit("SET_LOADING", true);
       const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
@@ -69,9 +73,11 @@ export default createStore({
           }
         );
         commit("SET_TRANSACTIONS", response.data.data.data[0]);
+        commit("SET_LOADING", false);
         return response;
       } catch (error) {
         console.log(error);
+        commit("SET_LOADING", false);
       }
     },
 
@@ -79,6 +85,7 @@ export default createStore({
       const access_key = "gaAgBEz0r2VrzQz8sU2GXjMXC3JqlMww";
       const base = "NGN";
       const symbols = "USD";
+      commit("SET_LOADING", true);
 
       await axios
         .get("https://api.apilayer.com/fixer/latest", {
@@ -92,9 +99,13 @@ export default createStore({
         .then((response) => {
           console.log(response.data.rates.USD);
           commit("SET_RATE", response.data.rates.USD);
+          commit("SET_LOADING", false);
           return response;
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => {
+          console.log("error", error);
+          commit("SET_LOADING", false);
+        });
     },
   },
   modules: {},

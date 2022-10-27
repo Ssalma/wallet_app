@@ -1,5 +1,15 @@
 <template>
-  <div class="home">
+  <div
+    class="response-message"
+    v-if="isSuccessful || isFailed"
+    :class="{ error: isFailed, success: isSuccessful }"
+  >
+    <p>{{ responseMessage }}</p>
+    <i class="uil uil-exclamation-triangle" v-if="isFailed"></i>
+    <i class="uil uil-check-circle" v-if="isSuccessful"></i>
+  </div>
+  <Spinner v-if="loading" />
+  <div class="home" v-else>
     <div class="nav">
       <div>
         <h3 class="amount">Hello {{ singleUser.firstName }} 👋🏿</h3>
@@ -138,12 +148,13 @@
 </template>
 
 <script>
+import { Spinner } from "@/components";
 import TableSection from "@/components/Tablecomponent/TableSection.vue";
 import ButtonComponent from "@/components/button/ButtonComponent.vue";
 import DashboardModal from "@/components/modal/DashboardModal.vue";
 import InputField from "@/components/Inputcomponent/InputField.vue";
 import PinComponent from "@/components/pincomponent/PinComponent.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import axios from "axios";
 // import { format } from "date-fns";
 
@@ -155,6 +166,7 @@ export default {
     DashboardModal,
     InputField,
     PinComponent,
+    Spinner,
   },
 
   data: () => ({
@@ -165,9 +177,13 @@ export default {
       number1: null,
     },
     openTransfer: false,
+    forReload: false,
     openFund: false,
     openPin: false,
     radioValue: "naira",
+    isSuccessful: false,
+    isFailed: false,
+    responseMessage: "",
   }),
   async created() {
     let userId = localStorage.getItem("userID");
@@ -178,7 +194,7 @@ export default {
     this.$store.commit("SET_FIRST_NAME", this.singleUser.firstName);
     this.$store.commit("SET_LAST_NAME", this.singleUser.lastName);
     console.log(this.singleUser);
-    console.log(this.currencyRate);
+    console.log(this.transactions);
   },
   computed: {
     ...mapGetters({
@@ -186,29 +202,15 @@ export default {
       transactions: "getTransactions",
       currencyRate: "getRates",
     }),
+    ...mapState({
+      loading: (state) => state.loading,
+    }),
     getBalance() {
       return this.singleUser.balance?.toFixed(2);
     },
     getDollar() {
       return this.singleUser.balance * this.currencyRate;
     },
-    // getStatus() {
-    //   if (!this.transactions.status == "successful") {
-    //     return "Failed";
-    //   } else {
-    //     return "Successful";
-    //   }
-    // },
-    // getDate() {
-    //   return format(new Date(this.transactions.createdAt), "MMM dd ',' yyyy");
-    // },
-    // getTransferType() {
-    //   if (!this.transactions.transactionType == "transfer") {
-    //     return "Deposit";
-    //   } else {
-    //     return "Transfer";
-    //   }
-    // },
   },
   methods: {
     ...mapActions({
@@ -252,9 +254,20 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          this.responseMessage = response.data.message;
+          this.isSuccessful = true;
+          setTimeout(() => {
+            this.isSuccessful = false;
+            this.forReload = true;
+          }, 2000);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data.message);
+          this.responseMessage = error.response.data.message;
+          this.isFailed = true;
+          setTimeout(() => {
+            this.isFailed = false;
+          }, 2000);
         });
       this.user.password = "";
       this.user.account = "";
@@ -275,21 +288,30 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          this.responseMessage = response.data.message;
+          this.isSuccessful = true;
+          setTimeout(() => {
+            this.isSuccessful = false;
+            this.forReload = true;
+          }, 2000);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data.message);
+          this.responseMessage = error.response.data.message;
+          this.isFailed = true;
+          setTimeout(() => {
+            this.isFailed = false;
+          }, 2000);
         });
       this.user.number1 = "";
     },
   },
   watch: {
-    user: {
-      handler() {
-        console.log("a");
-        let userId = localStorage.getItem("userID");
-        this.getSingleUser(userId);
-      },
-      deep: true,
+    forReload() {
+      let userId = localStorage.getItem("userID");
+      this.getSingleUser(userId);
+      this.getTransactions();
+      this.getRates();
     },
   },
 };
@@ -424,5 +446,35 @@ hr {
 }
 .pincomponent {
   padding-left: 14px;
+}
+
+.success,
+.error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: green;
+  background: rgb(171, 228, 171);
+  border: none;
+  /* border-radius: 10px; */
+  margin-bottom: 20px;
+  text-align: center;
+}
+.error {
+  color: black;
+  background: rgb(235, 146, 146);
+}
+
+.response-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 120;
 }
 </style>
