@@ -15,7 +15,7 @@ export default {
     loadNextPage() {
       setTimeout(() => {
         this.$router.push("/auth/signup");
-      }, 5000);
+      }, 1000);
     },
     loadNext() {
       this.$router.push("/auth/signup");

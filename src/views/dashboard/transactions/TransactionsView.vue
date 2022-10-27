@@ -1,5 +1,6 @@
 <template>
-  <div class="transactions">
+  <Spinner v-if="loading" />
+  <div class="transactions" v-else>
     <dashboard-modal v-if="isOpen" @close="closeModal" title="Filter">
       <template #content>
         <div class="transaction-type">
@@ -78,17 +79,23 @@
       </div>
     </div>
     <TableSection :tableData="filteredData" />
+    <!-- <pagination /> -->
   </div>
 </template>
 
 <script>
-import { DashboardModal, ButtonComponent, TableSection } from "@/components";
+import {
+  DashboardModal,
+  ButtonComponent,
+  TableSection,
+  Spinner,
+} from "@/components";
 import filterIcon from "@/assets/equalizer-line.svg";
 import searchIcon from "@/assets/search-icon.svg";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import axios from "axios";
 export default {
-  components: { DashboardModal, ButtonComponent, TableSection },
+  components: { DashboardModal, ButtonComponent, TableSection, Spinner },
   data() {
     return {
       filterIcon,
@@ -104,46 +111,31 @@ export default {
     let userId = localStorage.getItem("userID");
     await this.getSingleUser(userId);
     await this.getTransactions();
+    await this.getPaginationInfo();
     await this.filteredData;
+    this.$store.commit("SET_FIRST_NAME", this.singleUser.firstName);
+    this.$store.commit("SET_LAST_NAME", this.singleUser.lastName);
+    // console.log(this.paginationInfo);
   },
   computed: {
     ...mapGetters({
       singleUser: "getSingleUser",
       transactions: "getTransactions",
       filteredByDateData: "getFilteredData",
+      paginationInfo: "getPaginationInfo",
+    }),
+    ...mapState({
+      loading: (state) => state.loading,
     }),
     filteredData() {
       if (this.searchTerm) {
         return this.transactions.filter((name) => {
-          name.transactionType
-            .toLowerCase().includes(this.searchTerm)
-            
+          return name.transactionType.toLowerCase().includes(this.searchTerm);
         });
       } else {
         return this.transactions;
       }
     },
-    // newFilteredData() {
-    //   return this.filteredByDateData.map((item) => {
-    //     return {
-    //       transactionType: item.name,
-    //       status: item.status,
-    //       amount: item.amount,
-    //     };
-    //   });
-    // },
-    // filteredData() {
-    //   const filterD = this.filteredByDateData?.map((item) => {
-    //     return {
-    //       transactionType: item.name,
-    //       status: item.status,
-    //       amount: item.amount,
-    //     };
-    //   });
-    //   const dataToSet = filterD !== [] ? filterD : this.transactions;
-    //   console.log(dataToSet);
-    //   return dataToSet;
-    // },
   },
   methods: {
     openModal() {
@@ -156,6 +148,7 @@ export default {
       getSingleUser: "getSingleUser",
       getTransactions: "getTransactions",
       getFilteredData: "getFilteredData",
+      getPaginationInfo: "getPaginationInfo",
     }),
     filterTransaction() {
       let token = localStorage.getItem("token");
@@ -171,11 +164,13 @@ export default {
           const newresponse = response.data.data.data[0].map((item) => {
             return {
               transactionType: item.name,
+              createdAt: item.createdAt,
               status: item.status,
               amount: item.amount,
             };
           });
           this.$store.commit("SET_TRANSACTIONS", newresponse);
+          this.$store.commit("SET_PAGINATION", response.data.data);
         })
         .catch((error) => {
           console.log(error);

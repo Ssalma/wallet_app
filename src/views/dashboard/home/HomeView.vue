@@ -188,14 +188,11 @@ export default {
   }),
   async created() {
     let userId = localStorage.getItem("userID");
-    console.log(userId);
     await this.getSingleUser(userId);
     await this.getTransactions();
     await this.getRates();
     this.$store.commit("SET_FIRST_NAME", this.singleUser.firstName);
     this.$store.commit("SET_LAST_NAME", this.singleUser.lastName);
-    console.log(this.singleUser);
-    console.log(this.transactions);
   },
   computed: {
     ...mapGetters({
@@ -254,7 +251,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           this.responseMessage = response.data.message;
           this.isSuccessful = true;
           setTimeout(() => {
@@ -263,7 +259,6 @@ export default {
           }, 2000);
         })
         .catch((error) => {
-          console.log(error.response.data.message);
           this.responseMessage = error.response.data.message;
           this.isFailed = true;
           setTimeout(() => {
@@ -288,7 +283,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           this.responseMessage = response.data.message;
           this.isSuccessful = true;
           setTimeout(() => {
@@ -297,7 +291,6 @@ export default {
           }, 2000);
         })
         .catch((error) => {
-          console.log(error.response.data.message);
           this.responseMessage = error.response.data.message;
           this.isFailed = true;
           setTimeout(() => {

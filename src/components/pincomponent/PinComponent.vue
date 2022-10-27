@@ -82,7 +82,6 @@ export default {
     inputs: {
       handler() {
         this.$emit("update:inputValue", this.inputs.join(""));
-        console.log(this.inputs);
       },
       deep: true,
     },

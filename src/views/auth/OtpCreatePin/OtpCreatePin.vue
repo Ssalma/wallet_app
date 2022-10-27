@@ -20,7 +20,6 @@
           class="masked-pin-container"
           @keyup.enter="pushtopage"
         />
-        Pin: {{ Pin }}
         <ButtonComponent
           buttonTxt="Create Pin"
           class="btn--blue"
@@ -88,22 +87,20 @@ export default {
           )
           .then((response) => {
             this.$store.commit("SET_LOADING", false);
-            console.log(response);
-            this.responseMessage = "Pin Creation Successful";
+            this.responseMessage = response.data.message;
             this.isSuccessful = true;
             setTimeout(() => {
               this.isSuccessful = false;
               this.$router.push("/dashboard");
-            }, 2000);
+            }, 1500);
           })
           .catch((error) => {
             this.$store.commit("SET_LOADING", false);
-            console.log(error);
-            this.responseMessage = "Pin Creation Failed";
+            this.responseMessage = error.response.data.message;
             this.isFailed = true;
             setTimeout(() => {
               this.isFailed = false;
-            }, 2000);
+            }, 1500);
           });
         this.$store.commit("SET_LOADING", false);
       } else {

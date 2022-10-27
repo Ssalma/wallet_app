@@ -1,4 +1,13 @@
 <template>
+  <div
+    class="response-message"
+    v-if="isSuccessful || isFailed"
+    :class="{ error: isFailed, success: isSuccessful }"
+  >
+    <p>{{ responseMessage }}</p>
+    <i class="uil uil-exclamation-triangle" v-if="isFailed"></i>
+    <i class="uil uil-check-circle" v-if="isSuccessful"></i>
+  </div>
   <auth-screen title="Create Your Account" subtitle="Let’s get you started">
     <template #content>
       <div class="main-div">
@@ -22,6 +31,20 @@
           </h2>
         </form>
       </div>
+      <div class="lds-spinner" v-if="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </template>
   </auth-screen>
 </template>
@@ -31,6 +54,7 @@ import AuthScreen from "@/layout/AuthScreens.vue";
 import axios from "axios";
 import InputField from "@/components/Inputcomponent/InputField.vue";
 import ButtonComponent from "@/components/button/ButtonComponent.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     AuthScreen,
@@ -44,14 +68,22 @@ export default {
       email: "",
       number: "",
       password: "",
+      isSuccessful: false,
+      isFailed: false,
+      responseMessage: "",
     };
   },
-  updated() {
-    console.log(this.newemail);
+  computed: {
+    ...mapState({
+      loading: (state) => state.loading,
+    }),
   },
+  // updated() {
+  //   console.log(this.newemail);
+  // },
   methods: {
     async signUp() {
-      console.log(this.First);
+      this.$store.commit("SET_LOADING", true);
       await axios
         .post("http://192.168.100.97:3249/api/v1/user/signup", {
           firstName: this.First,
@@ -63,11 +95,24 @@ export default {
         .then((response) => {
           localStorage.setItem("signEmail", this.email);
           localStorage.setItem("signPassword", this.password);
-          console.log(response);
-          this.$router.push("/auth/otpverification");
+          this.$store.commit("SET_LOADING", false);
+          this.responseMessage = response.data.message;
+          this.isSuccessful = true;
+          setTimeout(() => {
+            this.isSuccessful = false;
+
+            this.$router.push("/auth/otpverification");
+          }, 1500);
         })
         .catch((err) => {
-          console.log(err.message);
+          console.log(err);
+          this.$store.commit("SET_LOADING", false);
+          this.responseMessage = err.response.data.message;
+          this.$store.commit("SET_LOADING", false);
+          this.isFailed = true;
+          setTimeout(() => {
+            this.isFailed = false;
+          }, 1500);
         });
       (this.First = ""),
         (this.Last = ""),
@@ -115,5 +160,112 @@ h2 {
 }
 a {
   text-decoration: none;
+}
+.success,
+.error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: green;
+  background: rgb(171, 228, 171);
+  border: none;
+  /* border-radius: 10px; */
+  margin-bottom: 20px;
+  text-align: center;
+}
+.error {
+  color: black;
+  background: rgb(235, 146, 146);
+}
+
+.response-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #1f6aec;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 </style>

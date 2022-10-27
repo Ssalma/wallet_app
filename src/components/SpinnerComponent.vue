@@ -26,6 +26,8 @@ export default {};
   position: relative;
   width: 80px;
   height: 80px;
+  left: 50%;
+  top: 50%;
 }
 .lds-spinner div {
   transform-origin: 40px 40px;

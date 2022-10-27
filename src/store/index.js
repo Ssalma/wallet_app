@@ -12,12 +12,14 @@ export default createStore({
     lastName: "",
     currencyRate: [],
     filteredByDateData: [],
+    paginationInfo: [],
   },
   getters: {
     getSingleUser: (state) => state.singleUser,
     getTransactions: (state) => state.transactions,
     getRates: (state) => state.currencyRate,
     getFilteredData: (state) => state.filteredByDateData,
+    getPaginationInfo: (state) => state.paginationInfo,
   },
   mutations: {
     SET_LOADING(state, payload) {
@@ -47,13 +49,16 @@ export default createStore({
     SET_FILTERED_DATA(state, payload) {
       state.filteredByDateData = payload;
     },
+    SET_PAGINATION(state, payload) {
+      state.paginationInfo = payload;
+    },
   },
   actions: {
     async getSingleUser({ commit }, userId) {
       commit("SET_LOADING", true);
       // const userId = this.state.userId;
       // const userId = localStorage.getItem("userID");
-      console.log(userId);
+      // console.log(userId);
       try {
         let response = await axios.get(
           `http://192.168.100.97:3249/api/v1/user/${userId}`
@@ -78,6 +83,8 @@ export default createStore({
           }
         );
         commit("SET_TRANSACTIONS", response.data.data.data[0]);
+        commit("SET_PAGINATION", response.data.data);
+        // console.log(this.state.paginationInfo);
         commit("SET_LOADING", false);
         return response;
       } catch (error) {
@@ -102,7 +109,6 @@ export default createStore({
           headers: { apikey: "gaAgBEz0r2VrzQz8sU2GXjMXC3JqlMww" },
         })
         .then((response) => {
-          console.log(response.data.rates.USD);
           commit("SET_RATE", response.data.rates.USD);
           commit("SET_LOADING", false);
           return response;

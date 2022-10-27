@@ -1,0 +1,30 @@
+.profile {
+  margin-top: 50px;
+  .personal-information {
+    h1 {
+      background: #d9dee3;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    form {
+      margin-top: 20px;
+      .name-section {
+        display: flex;
+        flex-wrap: wrap;
+        div {
+          margin-right: 20px;
+          margin-top: 10px;
+        }
+        input {
+          width: 300px;
+          padding: 10px;
+          background: #f2f4f7;
+          border: none;
+          border-radius: 5px;
+          outline: none;
+        }
+      }
+    }
+  }
+}

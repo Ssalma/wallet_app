@@ -81,13 +81,12 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          console.log(response);
           localStorage.setItem("userID", response.data.data.id);
           this.$store.commit("SET_ID", response.data.data.id);
           this.$store.commit("SET_LOADING", false);
           let token = response.data.data.token;
           localStorage.setItem("token", token);
-          this.responseMessage = "Login Successful";
+          this.responseMessage = response.data.message;
           this.isSuccessful = true;
           setTimeout(() => {
             this.isSuccessful = false;
@@ -96,16 +95,15 @@ export default {
             } else {
               this.$router.push("/dashboard");
             }
-          }, 2000);
+          }, 1500);
         })
         .catch((err) => {
-          console.log(err);
-          this.responseMessage = "Login Failed";
+          this.responseMessage = err.response.data.message;
           this.$store.commit("SET_LOADING", false);
           this.isFailed = true;
           setTimeout(() => {
             this.isFailed = false;
-          }, 2000);
+          }, 1500);
         });
       (this.email = ""), (this.password = "");
     },
@@ -179,6 +177,9 @@ a {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
