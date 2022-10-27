@@ -85,7 +85,7 @@ export default {
     async signUp() {
       this.$store.commit("SET_LOADING", true);
       await axios
-        .post("http://192.168.100.94:3249/api/v1/user/signup", {
+        .post("http://192.168.100.97:3249/api/v1/user/signup", {
           firstName: this.First,
           lastName: this.Last,
           email: this.email,

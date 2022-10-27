@@ -77,7 +77,7 @@ export default {
         this.$store.commit("SET_LOADING", true);
         axios
           .post(
-            "http://192.168.100.69:3249/api/v1/user/pin/create",
+            "http://192.168.100.97:3249/api/v1/user/pin/create",
             { pin: newPin },
             {
               headers: {
@@ -132,7 +132,7 @@ export default {
 
   h2 {
     font-size: 18px;
-    text-align:start;
+    text-align: start;
   }
 }
 
@@ -147,7 +147,7 @@ export default {
 
   h2 {
     font-size: 23px;
-    text-align:start;
+    text-align: start;
   }
 }
 
@@ -162,10 +162,7 @@ export default {
 
   h2 {
     font-size: 18px;
-    text-align:start;
+    text-align: start;
   }
 }
-
-
-
 </style>

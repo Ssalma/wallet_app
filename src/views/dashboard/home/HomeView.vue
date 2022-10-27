@@ -383,11 +383,11 @@ p {
   justify-content: space-between;
   margin-top: 36px;
 }
-/* .main-wrapp {
-  // width: calc(100% - 64px);
-  margin-left: auto;
-  margin-right: auto;
-} */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .currency {
   display: flex;
   gap: 24px;

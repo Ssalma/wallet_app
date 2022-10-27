@@ -76,7 +76,7 @@ export default {
     async logIn() {
       this.$store.commit("SET_LOADING", true);
       await axios
-        .post("http://192.168.100.69:3249/api/v1/user/login", {
+        .post("http://192.168.100.97:3249/api/v1/user/login", {
           email: this.email,
           password: this.password,
         })

@@ -76,7 +76,7 @@ export default {
       const newpin = this.Pin.toString();
       const newmail = localStorage.getItem("signEmail");
       await axios
-        .post("http://192.168.100.69:3249/api/v1/user/otp/verify", {
+        .post("http://192.168.100.97:3249/api/v1/user/otp/verify", {
           email: newmail,
           OTP: newpin,
         })
