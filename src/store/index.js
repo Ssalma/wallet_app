@@ -11,11 +11,13 @@ export default createStore({
     firstName: "",
     lastName: "",
     currencyRate: [],
+    filteredByDateData: [],
   },
   getters: {
     getSingleUser: (state) => state.singleUser,
     getTransactions: (state) => state.transactions,
     getRates: (state) => state.currencyRate,
+    getFilteredData: (state) => state.filteredByDateData,
   },
   mutations: {
     SET_LOADING(state, payload) {
@@ -41,6 +43,9 @@ export default createStore({
     },
     SET_RATE(state, payload) {
       state.currencyRate = payload;
+    },
+    SET_FILTERED_DATA(state, payload) {
+      state.filteredByDateData = payload;
     },
   },
   actions: {
@@ -107,6 +112,26 @@ export default createStore({
           commit("SET_LOADING", false);
         });
     },
+
+    // async filterTransaction({ selectValue}) {
+    //   let token = localStorage.getItem("token");
+    //   axios
+    //     .get(
+    //       `http://192.168.100.97:3249/api/v1/transaction/filtered?name=${this.selectValue}&from=${this.dateDate}&to=${this.endDate}`,
+    //       {
+    //         headers: { token },
+    //       }
+    //     )
+    //     .then((response) => {
+    //       console.log(response);
+    //       this.$store.commit("SET_FILTERED_DATA", response.data.data.data[0]);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    //   this.dateDate = "yyyy-mm-dd";
+    //   this.endDate = "yyyy-mm-dd";
+    // },
   },
   modules: {},
 });

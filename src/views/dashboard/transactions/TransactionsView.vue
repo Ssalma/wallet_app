@@ -6,10 +6,14 @@
           <hr />
           <p>Transaction Type</p>
           <div class="select">
-            <select name="transaction-type" id="transaction-type">
+            <select
+              name="transaction-type"
+              id="transaction-type"
+              v-model="selectValue"
+            >
               <!-- <option value="default">--Select--</option> -->
-              <option value="transfer">Wallet Transfer</option>
-              <option value="deposit">Wallet Deposit</option>
+              <option :value="'transfer'">Wallet Transfer</option>
+              <option :value="'deposit'">Wallet Deposit</option>
             </select>
           </div>
         </div>
@@ -48,14 +52,23 @@
             <label for="failed">Failed</label>
           </div>
         </div>
-        <ButtonComponent variant="blue" buttonTxt="Apply Search" />
+        <ButtonComponent
+          variant="blue"
+          buttonTxt="Apply Search"
+          type="button"
+          @click="filterTransaction()"
+        />
       </template>
     </dashboard-modal>
     <div class="header">
       <h3>Transactions</h3>
       <div class="search-filter">
         <div class="search">
-          <input type="text" placeholder="Search by name" />
+          <input
+            type="text"
+            placeholder="Search by name"
+            v-model="searchTerm"
+          />
           <img :src="searchIcon" alt="" />
         </div>
         <div class="filter" @click="openModal">
@@ -64,7 +77,7 @@
         </div>
       </div>
     </div>
-    <TableSection :tableData="tableData" v-if="tableData.length > 0" />
+    <TableSection :tableData="filteredData" />
   </div>
 </template>
 
@@ -72,6 +85,8 @@
 import { DashboardModal, ButtonComponent, TableSection } from "@/components";
 import filterIcon from "@/assets/equalizer-line.svg";
 import searchIcon from "@/assets/search-icon.svg";
+import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
 export default {
   components: { DashboardModal, ButtonComponent, TableSection },
   data() {
@@ -81,30 +96,54 @@ export default {
       isOpen: false,
       dateDate: "yyyy-mm-dd",
       endDate: "yyyy-mm-dd",
-      tableData: [
-        {
-          tranType: "Wallet Deposit",
-          date: "May 27, 2020 | ",
-          time: " 12:38 PM",
-          status: "successful",
-          amount: "NGN 30,000",
-        },
-        {
-          tranType: "Wallet Deposit",
-          date: "May 27, 2020 | ",
-          time: " 12:38 PM",
-          status: "failure",
-          amount: "NGN 30,000",
-        },
-        {
-          tranType: "Wallet Deposit",
-          date: "May 27, 2020 | ",
-          time: " 12:38 PM",
-          status: "successful",
-          amount: "NGN 30,000",
-        },
-      ],
+      selectValue: "transfer",
+      searchTerm: "",
     };
+  },
+  async created() {
+    let userId = localStorage.getItem("userID");
+    await this.getSingleUser(userId);
+    await this.getTransactions();
+    await this.filteredData;
+  },
+  computed: {
+    ...mapGetters({
+      singleUser: "getSingleUser",
+      transactions: "getTransactions",
+      filteredByDateData: "getFilteredData",
+    }),
+    filteredData() {
+      if (this.searchTerm) {
+        return this.transactions.filter((name) => {
+          name.transactionType
+            .toLowerCase().includes(this.searchTerm)
+            
+        });
+      } else {
+        return this.transactions;
+      }
+    },
+    // newFilteredData() {
+    //   return this.filteredByDateData.map((item) => {
+    //     return {
+    //       transactionType: item.name,
+    //       status: item.status,
+    //       amount: item.amount,
+    //     };
+    //   });
+    // },
+    // filteredData() {
+    //   const filterD = this.filteredByDateData?.map((item) => {
+    //     return {
+    //       transactionType: item.name,
+    //       status: item.status,
+    //       amount: item.amount,
+    //     };
+    //   });
+    //   const dataToSet = filterD !== [] ? filterD : this.transactions;
+    //   console.log(dataToSet);
+    //   return dataToSet;
+    // },
   },
   methods: {
     openModal() {
@@ -112,6 +151,37 @@ export default {
     },
     closeModal() {
       this.isOpen = false;
+    },
+    ...mapActions({
+      getSingleUser: "getSingleUser",
+      getTransactions: "getTransactions",
+      getFilteredData: "getFilteredData",
+    }),
+    filterTransaction() {
+      let token = localStorage.getItem("token");
+      axios
+        .get(
+          `http://192.168.100.97:3249/api/v1/transaction/filtered?name=${this.selectValue}&from=${this.dateDate}&to=${this.endDate}`,
+          {
+            headers: { token },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          const newresponse = response.data.data.data[0].map((item) => {
+            return {
+              transactionType: item.name,
+              status: item.status,
+              amount: item.amount,
+            };
+          });
+          this.$store.commit("SET_TRANSACTIONS", newresponse);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.dateDate = "yyyy-mm-dd";
+      this.endDate = "yyyy-mm-dd";
     },
   },
 };

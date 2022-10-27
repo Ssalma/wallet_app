@@ -93,6 +93,7 @@
             type="button"
             @click="makeTransfer"
           />
+          <p id="wrongPin"></p>
         </form>
       </template>
     </DashboardModal>
